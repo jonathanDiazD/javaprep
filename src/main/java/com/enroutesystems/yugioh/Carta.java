@@ -3,12 +3,25 @@ package com.enroutesystems.yugioh;
 
 import java.util.Objects;
 
-public class Carta {
-    
-    private long ataque;
-    private long defensa;
-    private String tipo;
-    private byte imagen;
+public abstract class Carta {
+
+    protected String nombre;
+    protected long ataque;
+    protected long defensa;
+    protected byte imagen;
+    protected int nivel;
+    protected ModoPelea modo;
+    protected char firstEdition;
+    protected short precioDlls;
+
+    public Carta(String nombre, long ataque, long defensa) {
+        this.nombre = nombre;
+        this.ataque = ataque;
+        this.defensa = defensa;
+    }
+
+    public Carta() {
+    }
 
     public long getAtaque() {
         return ataque;
@@ -26,14 +39,6 @@ public class Carta {
         this.defensa = defensa;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public byte getImagen() {
         return imagen;
     }
@@ -42,16 +47,63 @@ public class Carta {
         this.imagen = imagen;
     }
 
+    public ModoPelea getModo() {
+        return modo;
+    }
+
+    public void setModo(ModoPelea modo) {
+        this.modo = modo;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public char getFirstEdition() {
+        return firstEdition;
+    }
+
+    public void setFirstEdition(char firstEdition) {
+        this.firstEdition = firstEdition;
+    }
+
+    public short getPrecioDlls() {
+        return precioDlls;
+    }
+
+    public void setPrecioDlls(short precioDlls) {
+        this.precioDlls = precioDlls;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Carta carta = (Carta) o;
-        return ataque == carta.ataque && defensa == carta.defensa && tipo.equals(carta.tipo);
+        return nombre.equals(carta.nombre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ataque, defensa, tipo);
+        return Objects.hash(nombre);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Carta{" +
+                "nombre='" + nombre + '\'' +
+                '}';
     }
 }
