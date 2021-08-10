@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,8 +20,6 @@ public class Duelo {
         goto
         const
     * */
-
-
 
     /*Palabras reservadas que se contemplan en el TEST
        *
@@ -115,6 +112,8 @@ public class Duelo {
 
     private Duelista getDuelistaYuGi(){
         LinkedList<Carta> deck = new LinkedList<>();
+        Set<Carta> deckDragon = new TreeSet<>();
+
         Carta magoOscuro = new CartaMonstruo("Mago Oscuro",2500,2000);
         Carta monstruoRenacido = new CartaMagia("Monstruo renacido",0l,0l,"Revives un monstruo del cementerio");
         Carta magaOscura = new CartaMonstruo("Mago Oscura",2500,2000);
@@ -171,4 +170,98 @@ public class Duelo {
         }
     }
 
+
+    @Test
+    public void ordenarDeckTree() {
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro",2500,2000);
+        Carta monstruoRenacido = new CartaMagia("Monstruo renacido",0l,0l,"Revives un monstruo del cementerio");
+        Carta magaOscura = new CartaMonstruo("Mago Oscura",2000,2000);
+        TreeSet<Carta> cartas = new TreeSet<>();
+        cartas.add(magoOscuro);
+        cartas.add(monstruoRenacido);
+        cartas.add(magaOscura);
+        log.info("cartas:"+cartas);
+
+        TreeSet<Carta> cartasOrdenadas = new TreeSet<>(new Comparator<Carta>() {
+            @Override
+            public int compare(Carta o1, Carta o2) {
+                return o1.getNombre().compareTo(o2.getNombre());
+            }
+        });
+        cartasOrdenadas.add(magoOscuro);
+        cartasOrdenadas.add(monstruoRenacido);
+        cartasOrdenadas.add(magaOscura);
+        log.info("cartas:"+cartasOrdenadas);
+    }
+
+
+
+    @Test
+    public void deckSet() {
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro",2500,2000);
+        Carta monstruoRenacido = new CartaMagia("Monstruo renacido",0l,0l,"Revives un monstruo del cementerio");
+        Carta magaOscura = new CartaMonstruo("Mago Oscura",2000,2000);
+        Set<Carta> cartas = new HashSet<>();
+        cartas.add(magoOscuro);
+        cartas.add(magoOscuro);
+        cartas.add(magoOscuro);
+        cartas.add(monstruoRenacido);
+        log.info("cartas:"+cartas);
+    }
+
+    //ordenamiento de acuerdo al ingreso en la colleccion
+    @Test
+    public void linkedDeckSet() {
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro",2500,2000);
+        Carta monstruoRenacido = new CartaMagia("Monstruo renacido",0l,0l,"Revives un monstruo del cementerio");
+        Carta magaOscura = new CartaMonstruo("Mago Oscura",2000,2000);
+        LinkedHashSet<Carta> cartas = new LinkedHashSet<>();
+        cartas.add(magoOscuro);
+        cartas.add(magoOscuro);
+        cartas.add(magoOscuro);
+        cartas.add(monstruoRenacido);
+        log.info("cartas:"+cartas);
+    }
+
+
+    @Test
+    public void enumSet() {
+
+        for(ModoPelea modoPelea:ModoPelea.values()){
+            log.info("modo all:"+modoPelea.name());
+        }
+
+        for(ModoPelea modoPelea:EnumSet.of(ModoPelea.Ataque)){
+            log.info("modos ataque:"+modoPelea.name());
+        }
+
+        for(ModoPelea modoPelea:EnumSet.range(ModoPelea.Defensa,ModoPelea.BocaAbajo)){
+            log.info("modos range defensa-bocaAbajo:"+modoPelea.name());
+        }
+    }
+
+
+    @Test
+    public void vectorDeck() {
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro",2500,2000);
+        Carta monstruoRenacido = new CartaMagia("Monstruo renacido",0l,0l,"Revives un monstruo del cementerio");
+        Carta magaOscura = new CartaMonstruo("Mago Oscura",2000,2000);
+        Vector vector = new Vector();
+        vector.add(magoOscuro);
+        vector.add(monstruoRenacido);
+        vector.add(magaOscura);
+        log.info("vector:"+vector.capacity());
+    }
+
+    @Test
+    public void linkedListDeck() {
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro",2500,2000);
+        Carta monstruoRenacido = new CartaMagia("Monstruo renacido",0l,0l,"Revives un monstruo del cementerio");
+        Carta magaOscura = new CartaMonstruo("Mago Oscura",2000,2000);
+        List<Carta> deck = new LinkedList();
+        deck.add(magoOscuro);
+        deck.add(monstruoRenacido);
+        deck.add(magaOscura);
+        log.info("deck capacity:"+deck);
+    }
 }

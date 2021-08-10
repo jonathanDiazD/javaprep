@@ -4,11 +4,11 @@ package com.enroutesystems.yugioh;
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Carta implements Serializable {
+public abstract class Carta implements Serializable ,Comparable<Carta>{
 
     protected String nombre;
-    protected long ataque;
-    protected long defensa;
+    protected Long ataque;
+    protected Long defensa;
     protected byte imagen;
     protected int nivel;
     protected transient ModoPelea modo;
@@ -23,6 +23,12 @@ public abstract class Carta implements Serializable {
 
     public Carta() {
     }
+
+    @Override
+    public int compareTo(Carta o) {
+        return this.ataque.compareTo(o.getAtaque());
+    }
+
 
     public long getAtaque() {
         return ataque;

@@ -27,4 +27,6 @@ public class CartaMonstruo extends Carta implements EfectoEspecial {
 
 
     }
+
+
 }
