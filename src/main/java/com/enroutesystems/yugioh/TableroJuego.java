@@ -7,6 +7,8 @@ public final class TableroJuego {
 
     public static final String nombreJuego = "Yu-Gi-Oh!";
 
+
+
     private Duelista primerDuelista;
 
     private Duelista segundoDuelista;
@@ -15,11 +17,20 @@ public final class TableroJuego {
 
     private List<Carta> cartasSegundoDuelista = new ArrayList<>(10);
 
-    private List<Carta> cementerioPrimerDuelista = new ArrayList<>(10);
+    private List<Carta> cementerio = new ArrayList<>(10);
 
-    private List<Carta> cementerioSegundoDuelista = new ArrayList<>(10);
+    private volatile float tiempoDuelo;
 
-    private float tiempoDuelo;
+
+    public synchronized void  enviarCementerio(Carta carta){
+        try{
+            Thread.sleep(1000);
+            cementerio.add(carta);
+        }catch(Exception e){
+
+        }
+    }
+
 
     public Duelista getPrimerDuelista() {
         return primerDuelista;
@@ -53,20 +64,12 @@ public final class TableroJuego {
         this.cartasSegundoDuelista = cartasSegundoDuelista;
     }
 
-    public List<Carta> getCementerioPrimerDuelista() {
-        return cementerioPrimerDuelista;
+    public List<Carta> getCementerio() {
+        return cementerio;
     }
 
-    public void setCementerioPrimerDuelista(List<Carta> cementerioPrimerDuelista) {
-        this.cementerioPrimerDuelista = cementerioPrimerDuelista;
-    }
-
-    public List<Carta> getCementerioSegundoDuelista() {
-        return cementerioSegundoDuelista;
-    }
-
-    public void setCementerioSegundoDuelista(List<Carta> cementerioSegundoDuelista) {
-        this.cementerioSegundoDuelista = cementerioSegundoDuelista;
+    public void setCementerio(List<Carta> cementerio) {
+        this.cementerio = cementerio;
     }
 
     public float getTiempoDuelo() {

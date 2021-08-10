@@ -1,16 +1,17 @@
 package com.enroutesystems.yugioh;
 
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Carta {
+public abstract class Carta implements Serializable {
 
     protected String nombre;
     protected long ataque;
     protected long defensa;
     protected byte imagen;
     protected int nivel;
-    protected ModoPelea modo;
+    protected transient ModoPelea modo;
     protected char firstEdition;
     protected short precioDlls;
 

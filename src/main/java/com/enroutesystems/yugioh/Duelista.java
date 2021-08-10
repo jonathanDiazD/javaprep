@@ -9,6 +9,7 @@ public class Duelista {
     private LinkedList<Carta> deck= new LinkedList<>();
     private List<Carta> mano = new ArrayList<>(5);
     private boolean turnoActual;
+    private TableroJuego tablero;
 
     public Duelista(String nombre, double lifePoints, LinkedList<Carta> deck) {
         this.nombre = nombre;
@@ -26,6 +27,9 @@ public class Duelista {
         }
         return carta;
     }
+
+
+
 
     public Long sumarizarPoderAtk(){
         Long ataque =0L;
@@ -58,9 +62,10 @@ public class Duelista {
         return ataque;
     }
 
-    public void sacarCarta(){
+    public Carta sacarCarta(){
         Carta carta = deck.removeFirst();
         this.mano.add(carta);
+        return carta;
     }
 
     public String getNombre() {
@@ -101,5 +106,13 @@ public class Duelista {
 
     public void setTurnoActual(boolean turnoActual) {
         this.turnoActual = turnoActual;
+    }
+
+    public TableroJuego getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(TableroJuego tablero) {
+        this.tablero = tablero;
     }
 }
