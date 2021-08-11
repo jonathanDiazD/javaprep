@@ -7,13 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Slf4j
 public class Duelo {
+
+
 
 
     /*Palabras reservadas que no se utilizan:
@@ -264,4 +270,43 @@ public class Duelo {
         deck.add(magaOscura);
         log.info("deck capacity:"+deck);
     }
+
+    @Test
+    public void functionalInterfaces(){
+        Map<String,Integer> naveMap = new HashMap<>();
+        Integer value = naveMap.computeIfAbsent("John",s->s.length());
+        Function<Integer,String> intTostring = i->i.toString();
+        log.info("value:"+intTostring.apply(3));
+        log.info("Value:"+value);
+    }
+
+    @Test
+    public void functionalInterfacesPredicate(){
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro",2500,2000);
+        Carta monstruoRenacido = new CartaMagia("Monstruo renacido",0l,0l,"Revives un monstruo del cementerio");
+        Carta magaOscura = new CartaMonstruo("Mago Oscura",2000,2000);
+        List<Carta> deck = new LinkedList();
+        deck.add(magoOscuro);
+        deck.add(monstruoRenacido);
+        deck.add(magaOscura);
+        log.info(""+deck.stream().peek(c->log.info("works->"+c.getAtaque())).count());
+    }
+
+    @Test
+    public void fibonacci(){
+        int[]  fibs ={0,1};
+        Stream<Integer> fibonacci = Stream.generate(()->{
+           int result = fibs[1];
+           int fib3 = fibs[0]+fibs[1];
+           fibs[0]=fibs[1];
+           fibs[1]=fib3;
+           return result;
+        });
+        fibonacci.peek(number->log.info(number.toString())).limit(10).count();
+
+    }
+
+
+
+
 }
