@@ -3,6 +3,7 @@ package com.enroutesystems.yugioh;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class Carta implements Serializable ,Comparable<Carta>{
 
@@ -14,14 +15,38 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
     protected transient ModoPelea modo;
     protected char firstEdition;
     protected short precioDlls;
+    protected AtomicLong ataqueAtomic;
+    protected  boolean edicionPrimera;
+
+    public boolean isEdicionPrimera() {
+        return edicionPrimera;
+    }
+
+    public void setEdicionPrimera(boolean edicionPrimera) {
+        this.edicionPrimera = edicionPrimera;
+    }
 
     public Carta(String nombre, long ataque, long defensa) {
         this.nombre = nombre;
         this.ataque = ataque;
         this.defensa = defensa;
     }
+    public Carta(String nombre, AtomicLong ataque, long defensa) {
+        this.nombre = nombre;
+        this.ataqueAtomic = ataque;
+        this.defensa = defensa;
+    }
+
 
     public Carta() {
+    }
+
+    public AtomicLong getAtaqueAtomic() {
+        return ataqueAtomic;
+    }
+
+    public void setAtaqueAtomic(AtomicLong ataqueAtomic) {
+        this.ataqueAtomic = ataqueAtomic;
     }
 
     public Carta(String nombre) {
@@ -33,6 +58,13 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
         return this.ataque.compareTo(o.getAtaque());
     }
 
+
+    public  void incrementarAtaqueAtomic(){
+        ataqueAtomic.getAndIncrement();
+    }
+    public synchronized void incrementarAtaque(){
+        ataque++;
+    }
 
     public long getAtaque() {
         return ataque;

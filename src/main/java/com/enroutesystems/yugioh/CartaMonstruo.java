@@ -6,6 +6,7 @@ import com.enroutesystems.yugioh.annotatios.UltraRare;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 @UltraRare
 public class CartaMonstruo extends Carta implements EfectoEspecial {
@@ -15,6 +16,11 @@ public class CartaMonstruo extends Carta implements EfectoEspecial {
     public CartaMonstruo(String nombre,long ataque,long defensa) {
         super(nombre,ataque,defensa);
     }
+
+    public CartaMonstruo(String nombre, AtomicLong ataque, long defensa) {
+        super(nombre,ataque,defensa);
+    }
+
 
     public void addMagia(CartaMagia cartaMagia){
         if(this.magias.add(cartaMagia)){

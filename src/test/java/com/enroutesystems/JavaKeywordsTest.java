@@ -10,11 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.setMaxElementsForPrinting;
 
-@SpringBootTest
+
 @Slf4j
 public class JavaKeywordsTest {
 
@@ -55,6 +57,7 @@ public class JavaKeywordsTest {
             Duelista yugi = new Duelista("Yugi", 8000, deck);
             yugi.sacarCarta();
             yugi.sacarCarta();
+
             log.info("Mano actual yu gi:" + yugi.getMano());
         } catch (Exception e) {
             log.error("Got exception: {}", e.getMessage(), e);
@@ -310,4 +313,49 @@ public class JavaKeywordsTest {
         log.info("result multiplatform indepent:"+result);
     }
 
+
+    @Test
+    public void inicializarDuelistaPredicate() {
+
+        try {
+            LinkedList<Carta> deck = new LinkedList<>();
+            Carta magoOscuro = new CartaMonstruo("Mago Oscuro", 2500, 2000);
+            Carta monstruoRenacido = new CartaMagia("Monstruo renacido", 0l, 0l, "Revives un monstruo del cementerio");
+            Carta magaOscura = new CartaMonstruo("Mago Oscura", 2500, 2000);
+            deck.add(magoOscuro);
+            deck.add(monstruoRenacido);
+            deck.add(magaOscura);
+            deck.removeIf(new Predicate<Carta>() {
+                @Override
+                public boolean test(Carta carta) {
+                    return carta.getAtaque()>0;
+                }
+            });
+            log.info("Deck yu gi:" + deck);
+        } catch (Exception e) {
+            log.error("Got exception: {}", e.getMessage(), e);
+        } finally {
+            log.info("Continuara....");
+        }
+    }
+
+    @Test
+    public void inicializarDuelistaPredicateLambda() {
+
+        try {
+            LinkedList<Carta> deck = new LinkedList<>();
+            Carta magoOscuro = new CartaMonstruo("Mago Oscuro", 2500, 2000);
+            Carta monstruoRenacido = new CartaMagia("Monstruo renacido", 0l, 0l, "Revives un monstruo del cementerio");
+            Carta magaOscura = new CartaMonstruo("Mago Oscura", 2500, 2000);
+            deck.add(magoOscuro);
+            deck.add(monstruoRenacido);
+            deck.add(magaOscura);
+            deck.removeIf(carta-> carta.getAtaque()>0);
+            log.info("Deck yu gi:" + deck);
+        } catch (Exception e) {
+            log.error("Got exception: {}", e.getMessage(), e);
+        } finally {
+            log.info("Continuara....");
+        }
+    }
 }
