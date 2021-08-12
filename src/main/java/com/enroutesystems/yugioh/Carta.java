@@ -24,6 +24,10 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
     public Carta() {
     }
 
+    public Carta(String nombre) {
+        this.nombre = nombre;
+    }
+
     @Override
     public int compareTo(Carta o) {
         return this.ataque.compareTo(o.getAtaque());

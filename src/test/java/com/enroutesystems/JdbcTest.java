@@ -12,13 +12,12 @@ import java.sql.*;
 
 @SpringBootTest
 @Slf4j
-public class jdbcTest {
+public class JdbcTest {
 
     @Test
     public void testJDBCConexion(){
         DataSourceInitialization dataSourceInitialization = new DataSourceInitialization();
         DataSource dataSource = dataSourceInitialization.getDataSource();
-
         try {
             Connection connection = dataSource.getConnection();
         } catch (SQLException e) {
