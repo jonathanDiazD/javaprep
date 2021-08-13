@@ -64,4 +64,27 @@ public class AtomicAPITest {
         }
         log.info("Atk final:"+magoOscuro.getAtaqueAtomic().get());
     }
+
+
+    @Test
+    public void customAnnotationMagiaBooleanAtomic(){
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro", new AtomicLong(0l), 2000,true);
+        Runnable task2= ()->{
+            while(magoOscuro.isEdicionPrimera()){
+                log.info("Mago oscuro is atk");
+            }
+        };
+        Runnable task1= ()->{
+            magoOscuro.setEdicionPrimera(false);
+        };
+        executorService.submit(task2);
+        executorService.submit(task1);
+        try {
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("Atk final:"+magoOscuro.getAtaqueAtomic().get());
+    }
 }

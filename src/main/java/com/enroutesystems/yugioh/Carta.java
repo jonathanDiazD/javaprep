@@ -37,6 +37,12 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
         this.defensa = defensa;
     }
 
+    public Carta(String nombre, AtomicLong ataque, long defensa,boolean edicion) {
+        this.nombre = nombre;
+        this.ataqueAtomic = ataque;
+        this.defensa = defensa;
+        this.setEdicionPrimera(edicion);
+    }
 
     public Carta() {
     }

@@ -13,6 +13,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import static java.util.List.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.setMaxElementsForPrinting;
 
@@ -352,6 +353,7 @@ public class JavaKeywordsTest {
             deck.add(magaOscura);
             deck.removeIf(carta-> carta.getAtaque()>0);
             log.info("Deck yu gi:" + deck);
+
         } catch (Exception e) {
             log.error("Got exception: {}", e.getMessage(), e);
         } finally {

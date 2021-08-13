@@ -21,6 +21,9 @@ public class CartaMonstruo extends Carta implements EfectoEspecial {
         super(nombre,ataque,defensa);
     }
 
+    public CartaMonstruo(String nombre, AtomicLong ataque, long defensa,boolean edicion) {
+        super(nombre,ataque,defensa,edicion);
+    }
 
     public void addMagia(CartaMagia cartaMagia){
         if(this.magias.add(cartaMagia)){
