@@ -1,7 +1,13 @@
 package com.enroutesystems.yugioh;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.util.*;
 
+
+@Data
+@ToString
 public class Duelista {
 
     private String nombre;
@@ -27,9 +33,6 @@ public class Duelista {
         }
         return carta;
     }
-
-
-
 
     public Long sumarizarPoderAtk(){
         Long ataque =0L;
@@ -66,53 +69,5 @@ public class Duelista {
         Carta carta = deck.removeFirst();
         this.mano.add(carta);
         return carta;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public double getLifePoints() {
-        return lifePoints;
-    }
-
-    public void setLifePoints(double lifePoints) {
-        this.lifePoints = lifePoints;
-    }
-
-    public LinkedList<Carta> getDeck() {
-        return deck;
-    }
-
-    public void setDeck(LinkedList<Carta> deck) {
-        this.deck = deck;
-    }
-
-    public List<Carta> getMano() {
-        return mano;
-    }
-
-    public void setMano(List<Carta> mano) {
-        this.mano = mano;
-    }
-
-    public boolean isTurnoActual() {
-        return turnoActual;
-    }
-
-    public void setTurnoActual(boolean turnoActual) {
-        this.turnoActual = turnoActual;
-    }
-
-    public TableroJuego getTablero() {
-        return tablero;
-    }
-
-    public void setTablero(TableroJuego tablero) {
-        this.tablero = tablero;
     }
 }

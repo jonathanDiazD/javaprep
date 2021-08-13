@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.sql.DataSource;
 import java.sql.*;
 
-@SpringBootTest
+
 @Slf4j
 public class JdbcTest {
 

@@ -1,10 +1,18 @@
 package com.enroutesystems.yugioh;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
+
+@Data
+@NoArgsConstructor
+@ToString
 public abstract class Carta implements Serializable ,Comparable<Carta>{
 
     protected String nombre;
@@ -18,13 +26,6 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
     protected AtomicLong ataqueAtomic;
     protected  boolean edicionPrimera;
 
-    public boolean isEdicionPrimera() {
-        return edicionPrimera;
-    }
-
-    public void setEdicionPrimera(boolean edicionPrimera) {
-        this.edicionPrimera = edicionPrimera;
-    }
 
     public Carta(String nombre, long ataque, long defensa) {
         this.nombre = nombre;
@@ -44,20 +45,10 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
         this.setEdicionPrimera(edicion);
     }
 
-    public Carta() {
-    }
-
-    public AtomicLong getAtaqueAtomic() {
-        return ataqueAtomic;
-    }
-
-    public void setAtaqueAtomic(AtomicLong ataqueAtomic) {
-        this.ataqueAtomic = ataqueAtomic;
-    }
-
     public Carta(String nombre) {
         this.nombre = nombre;
     }
+
 
     @Override
     public int compareTo(Carta o) {
@@ -70,62 +61,6 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
     }
     public synchronized void incrementarAtaque(){
         ataque++;
-    }
-
-    public long getAtaque() {
-        return ataque;
-    }
-
-    public void setAtaque(long ataque) {
-        this.ataque = ataque;
-    }
-
-    public long getDefensa() {
-        return defensa;
-    }
-
-    public void setDefensa(long defensa) {
-        this.defensa = defensa;
-    }
-
-    public byte getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(byte imagen) {
-        this.imagen = imagen;
-    }
-
-    public ModoPelea getModo() {
-        return modo;
-    }
-
-    public void setModo(ModoPelea modo) {
-        this.modo = modo;
-    }
-
-    public int getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
-    }
-
-    public char getFirstEdition() {
-        return firstEdition;
-    }
-
-    public void setFirstEdition(char firstEdition) {
-        this.firstEdition = firstEdition;
-    }
-
-    public short getPrecioDlls() {
-        return precioDlls;
-    }
-
-    public void setPrecioDlls(short precioDlls) {
-        this.precioDlls = precioDlls;
     }
 
     @Override
@@ -141,18 +76,4 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
         return Objects.hash(nombre);
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    @Override
-    public String toString() {
-        return "Carta{" +
-                "nombre='" + nombre + '\'' +
-                '}';
-    }
 }

@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-@SpringBootTest
 @Slf4j
 public class CheckVsUncheckedTest {
 

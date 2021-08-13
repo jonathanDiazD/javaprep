@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@SpringBootTest
+
 @Slf4j
 public class AnnotationsTest {
 
