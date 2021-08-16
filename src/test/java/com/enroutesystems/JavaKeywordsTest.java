@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -191,12 +192,7 @@ public class JavaKeywordsTest {
         cartas.add(magaOscura);
         log.info("cartas:" + cartas);
 
-        TreeSet<Carta> cartasOrdenadas = new TreeSet<>(new Comparator<Carta>() {
-            @Override
-            public int compare(Carta o1, Carta o2) {
-                return o1.getNombre().compareTo(o2.getNombre());
-            }
-        });
+        TreeSet<Carta> cartasOrdenadas = new TreeSet<>(Comparator.comparing(Carta::getNombre));
         cartasOrdenadas.add(magoOscuro);
         cartasOrdenadas.add(monstruoRenacido);
         cartasOrdenadas.add(magaOscura);
@@ -354,6 +350,92 @@ public class JavaKeywordsTest {
             deck.removeIf(carta-> carta.getAtaque()>0);
             log.info("Deck yu gi:" + deck);
 
+        } catch (Exception e) {
+            log.error("Got exception: {}", e.getMessage(), e);
+        } finally {
+            log.info("Continuara....");
+        }
+    }
+
+
+    @Test
+    public void setDeck() {
+
+        try {
+            Set<Carta> deck =  new HashSet<>();
+            Carta magoOscuro = new CartaMonstruo("Mago Oscuro R.", 2500, 2000);
+            Carta monstruoRenacido = new CartaMagia("Monstruo renacido", 0l, 0l, "Revives un monstruo del cementerio");
+            Carta dragon = new CartaMonstruo("Dragon de ojos azules", 2500, 2000);
+            deck.add(magoOscuro);
+            deck.add(monstruoRenacido);
+            deck.add(dragon);
+            deck.add(dragon);
+            log.info("Deck yu gi size {}" , deck.size());
+            log.info("Dragon {}", dragon);
+        } catch (Exception e) {
+            log.error("Got exception: {}", e.getMessage(), e);
+        } finally {
+            log.info("Continuara....");
+        }
+    }
+
+    @Test
+    public void comparableTest() {
+
+        try {
+            List<Duelista> duelistas =  new ArrayList<>();
+            Duelista yugi  = new Duelista("Yugi", 8000, null);
+            Duelista yugi2 = new Duelista("Yugi", 2300, null);
+            Duelista yugi3 = new Duelista("Yugi", 4300, null);
+            Duelista yugi4 = new Duelista("Yugi", 6700, null);
+            duelistas.add(yugi);
+            duelistas.add(yugi2);
+            duelistas.add(yugi3);
+            duelistas.add(yugi4);
+            Collections.sort(duelistas);
+            duelistas.forEach(duelista -> log.info("Resultados {}, and its life points are{}",duelista.getNombre(),duelista.getLifePoints()));
+        } catch (Exception e) {
+            log.error("Got exception: {}", e.getMessage(), e);
+        } finally {
+            log.info("Continuara....");
+        }
+    }
+
+
+    @Test
+    public void comparatorTest() {
+        try {
+            List<Duelista> duelistas =  new ArrayList<>();
+            Duelista yugi  = new Duelista("YugiX", 8000, null);
+            Duelista yugi2 = new Duelista("YugiE", 2300, null);
+            Duelista yugi3 = new Duelista("YugiR", 4300, null);
+            Duelista yugi4 = new Duelista("YugiZ", 6700, null);
+            duelistas.add(yugi);
+            duelistas.add(yugi2);
+            duelistas.add(yugi3);
+            duelistas.add(yugi4);
+            Collections.sort(duelistas, Comparator.comparing(Duelista::getNombre));
+            duelistas.forEach(duelista -> log.info("Resultados {}, and its life points are{}",duelista.getNombre(),duelista.getLifePoints()));
+        } catch (Exception e) {
+            log.error("Got exception: {}", e.getMessage(), e);
+        } finally {
+            log.info("Continuara....");
+        }
+    }
+
+    @Test
+    public void sortedSetDuelistaTest() {
+        try {
+            SortedSet<Duelista> duelistas =  new TreeSet<>();
+            Duelista yugi  = new Duelista("YugiX", 8000, null);
+            Duelista yugi2 = new Duelista("YugiE", 2300, null);
+            Duelista yugi3 = new Duelista("YugiR", 4300, null);
+            Duelista yugi4 = new Duelista("YugiZ", 6700, null);
+            duelistas.add(yugi);
+            duelistas.add(yugi2);
+            duelistas.add(yugi3);
+            duelistas.add(yugi4);
+            duelistas.forEach(duelista -> log.info("Resultados {}, and its life points are{}",duelista.getNombre(),duelista.getLifePoints()));
         } catch (Exception e) {
             log.error("Got exception: {}", e.getMessage(), e);
         } finally {

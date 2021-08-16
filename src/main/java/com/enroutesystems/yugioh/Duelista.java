@@ -8,7 +8,7 @@ import java.util.*;
 
 @Data
 @ToString
-public class Duelista {
+public class Duelista implements Comparable<Duelista> {
 
     private String nombre;
     private double lifePoints;
@@ -69,5 +69,13 @@ public class Duelista {
         Carta carta = deck.removeFirst();
         this.mano.add(carta);
         return carta;
+    }
+
+    @Override
+    public int compareTo(Duelista o) {
+        if(this.getLifePoints()==o.getLifePoints()){
+            return 0;
+        }
+        return this.getLifePoints()>o.getLifePoints()?1:-1;
     }
 }
