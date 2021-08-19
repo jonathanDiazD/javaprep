@@ -108,4 +108,34 @@ public class ArraysTest {
         duelistas.add(yugi);
         log.info(Arrays.deepToString(duelistas.toArray()));
     }
+
+    @Test
+    public void arraysequalStringTest(){
+        Duelista kaiba = new Duelista("Kaiba", 1000, null);
+        Duelista joey = new Duelista("Joey", 100, null);
+        Duelista yugi = new Duelista("Yugi", 8000, null);
+        Duelista duelistas[] = {kaiba,joey,yugi};
+        Duelista duelistas2[] = {kaiba,joey,yugi};
+        log.info(Arrays.equals(duelistas,duelistas2)+"");
+    }
+
+    @Test
+    public void fillTest(){
+        Duelista kaiba = new Duelista("Kaiba", 1000, null);
+        Duelista joey = new Duelista("Joey", 100, null);
+        Duelista yugi = new Duelista("Yugi", 8000, null);
+        Duelista duelistas[] = new Duelista[10];
+        Arrays.fill(duelistas,joey);
+        log.info(Arrays.deepToString(duelistas));
+        log.info(duelistas.length+"");
+    }
+    @Test
+    public void hascodeTest(){
+        Duelista kaiba = new Duelista("Kaiba", 1000, null);
+        Duelista joey = new Duelista("Joey", 100, null);
+        Duelista yugi = new Duelista("Yugi", 8000, null);
+        Duelista duelistas[] = {kaiba,joey};
+        int hascode = Arrays.hashCode(duelistas);
+        log.info("hascode:"+hascode);
+    }
 }
