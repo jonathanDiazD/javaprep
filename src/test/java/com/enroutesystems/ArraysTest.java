@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Slf4j
@@ -129,6 +132,7 @@ public class ArraysTest {
         log.info(Arrays.deepToString(duelistas));
         log.info(duelistas.length+"");
     }
+
     @Test
     public void hascodeTest(){
         Duelista kaiba = new Duelista("Kaiba", 1000, null);
@@ -137,5 +141,36 @@ public class ArraysTest {
         Duelista duelistas[] = {kaiba,joey};
         int hascode = Arrays.hashCode(duelistas);
         log.info("hascode:"+hascode);
+    }
+
+
+    @Test
+    public void mergeSortTest(){
+        Duelista kaiba = new Duelista("Kaiba", 1000, null);
+        Duelista joey = new Duelista("Joey", 100, null);
+        Duelista yugi = new Duelista("Yugi", 8000, null);
+        Duelista duelistas[] = {kaiba,joey};
+        Arrays.sort(duelistas);
+        log.info("sort:"+Arrays.deepToString(duelistas));
+    }
+
+    @Test
+    public void splitTeratorTest(){
+        Duelista kaiba = new Duelista("Kaiba", 1000, null);
+        Duelista joey = new Duelista("Joey", 100, null);
+        Duelista yugi = new Duelista("Yugi", 8000, null);
+        Duelista duelistas[] = {kaiba,joey};
+        Spliterator<Duelista> spliterator = Arrays.spliterator(duelistas);
+        spliterator.forEachRemaining(s->log.info(s.toString()));
+    }
+
+    @Test
+    public void streamTest(){
+        Duelista kaiba = new Duelista("Kaiba", 1000, null);
+        Duelista joey = new Duelista("Joey", 100, null);
+        Duelista yugi = new Duelista("Yugi", 8000, null);
+        Duelista duelistas[] = {kaiba,joey};
+        Stream<Duelista> stream = Arrays.stream(duelistas);
+        stream.peek(d->log.info(d.toString())).collect(Collectors.toList());
     }
 }

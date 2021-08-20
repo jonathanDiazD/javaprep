@@ -52,13 +52,12 @@ public class MergeSortTest {
             k++;
         }
 
-        while (i < low)                             //merge the remaining elements from the left subarray
-        {
+        while (i < low)                             //merge the remaining elements from the left subarr
+             {
             arr[k] = L[i];
             i++;
             k++;
         }
-
         while (j < high)                           //merge the remaining elements from right subarray
         {
             arr[k] = R[j];
