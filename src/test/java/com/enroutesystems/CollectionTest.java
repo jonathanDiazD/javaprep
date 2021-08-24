@@ -5,10 +5,11 @@ import com.enroutesystems.yugioh.Duelista;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Slf4j
@@ -132,6 +133,57 @@ public class CollectionTest {
     }
 
 
+    @Test
+    public void reduceTest() {
+        List<String> example = new ArrayList<>();
+        example.add("example1");
+        example.add("example2");
+        example.add("example3");
+        Optional<String> reduced = example.stream().reduce((s1,s2)->s1+","+s2);
+        log.info(reduced.get());
+    }
+
+    @Test
+    public void reduceIntTest() {
+        int result = IntStream.range(0,10).reduce(0,(a,b)->a+b);
+        log.info(result+"");
+    }
 
 
+    @Test
+    public void reduceObjTest() {
+        List<Duelista> heroes = new ArrayList<>();
+        Duelista kaiba = new Duelista("Kaiba", 1000, null);
+        Duelista joey = new Duelista("Joey", 100, null);
+        Duelista yugi = new Duelista("Yugi", 8000, null);
+        heroes.add(kaiba);
+        heroes.add(joey);
+        heroes.add(yugi);
+        BinaryOperator biFunction = (BinaryOperator<Integer>) (sum, sum2) -> sum+sum2;
+        Integer lifePoints = heroes.stream().reduce(0,(sum,d) -> sum += new Double(d.getLifePoints()).intValue(),biFunction);
+        log.info("sum life poinits {}",lifePoints);
+    }
+
+    @Test
+    public void linkedObjTest() {
+        List<Duelista> heroes = new LinkedList<>();
+        Duelista kaiba = new Duelista("Kaiba", 1000, null);
+        Duelista joey = new Duelista("Joey", 100, null);
+        Duelista yugi = new Duelista("Yugi", 8000, null);
+        Duelista marin = new Duelista("marin", 8000, null);
+        heroes.add(kaiba);
+        heroes.add(joey);
+        heroes.add(yugi);
+        heroes.set(0,marin);
+        heroes.stream().peek(duelista->log.info("{}",duelista)).collect(Collectors.toList());
+        ShortToByte shortToByte = s -> (byte)(s*2);
+        byte b = shortToByte.applyAsByte((short)2);
+    }
+
+    @FunctionalInterface
+    interface ShortToByte{
+        byte applyAsByte(short s);
+    }
 }
+
+

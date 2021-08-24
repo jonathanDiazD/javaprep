@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 
@@ -149,12 +150,9 @@ public class JavaKeywordsTest {
             TableroJuego tableroJuego = new TableroJuego();
             Duelista yugi = getDuelistaYuGi();
             Duelista kaiba = getDuelistaKaiba();
-            Thread enviarCementerioYuGi = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    tableroJuego.enviarCementerio(yugi.getMano().remove(0));
-                    tableroJuego.setTiempoDuelo(12.3f);
-                }
+            Thread enviarCementerioYuGi = new Thread(() -> {
+                tableroJuego.enviarCementerio(yugi.getMano().remove(0));
+                tableroJuego.setTiempoDuelo(12.3f);
             });
             Thread enviarCementerioKaiba = new Thread(new Runnable() {
                 @Override
@@ -285,19 +283,7 @@ public class JavaKeywordsTest {
         log.info("" + deck.stream().peek(c -> log.info("works->" + c.getAtaque())).count());
     }
 
-    @Test
-    public void fibonacci() {
-        int[] fibs = {0, 1};
-        Stream<Integer> fibonacci = Stream.generate(() -> {
-            int result = fibs[1];
-            int fib3 = fibs[0] + fibs[1];
-            fibs[0] = fibs[1];
-            fibs[1] = fib3;
-            return result;
-        });
-        fibonacci.peek(number -> log.info(number.toString())).limit(10).count();
 
-    }
 
     @Test
     public strictfp void restricFP(){
@@ -431,10 +417,64 @@ public class JavaKeywordsTest {
             duelistas.add(yugi3);
             duelistas.add(yugi4);
             duelistas.forEach(duelista -> log.info("Resultados {}, and its life points are{}",duelista.getNombre(),duelista.getLifePoints()));
+            Map<String, Integer> nameMap = new HashMap<>();
+            nameMap.put("John",5);
+            Integer value = nameMap.computeIfAbsent("John", s -> s.length());
+            log.info(value+"");
+            Map<String, Integer> salaries = new HashMap<>();
+            salaries.put("John",40000);
+            salaries.put("Freddy",30000);
+            salaries.put("Samuel",50000);
+            salaries.replaceAll((name, oldValue) -> name.equals("Freddy") ? oldValue : oldValue + 10000);
         } catch (Exception e) {
             log.error("Got exception: {}", e.getMessage(), e);
         } finally {
             log.info("Continuara....");
         }
     }
+
+
+    @Test
+    public void threadExample() {
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro", 2500, 2000);
+        Carta monstruoRenacido = new CartaMagia("Monstruo renacido", 0l, 0l, "Revives un monstruo del cementerio");
+        Carta magaOscura = new CartaMonstruo("Mago Oscura", 2500, 2000);
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                log.info("threas running{}",Thread.currentThread().getName());
+            }
+        });
+       thread.start();
+
+    }
+
+    @Test
+    public void threadDaemonExample() {
+        Runnable runnable = () -> {
+            try {
+                int x=6;
+                while(x>0) {
+                    Thread.sleep(1000);
+                    log.info("running");
+                    x--;
+                }
+            } catch (InterruptedException e) {
+                log.info("Error",e);
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.setDaemon(true);
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
+

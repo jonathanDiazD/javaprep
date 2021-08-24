@@ -4,16 +4,19 @@ package com.enroutesystems.yugioh;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 
 @Data
 @NoArgsConstructor
 @ToString
-public abstract class Carta implements Serializable ,Comparable<Carta>{
+@Slf4j
+public abstract class Carta extends Thread implements Serializable ,Comparable<Carta> {
 
     protected String nombre;
     protected Long ataque;
@@ -25,6 +28,17 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
     protected short precioDlls;
     protected AtomicLong ataqueAtomic;
     protected  boolean edicionPrimera;
+
+    public Long getAtaque() {
+        synchronized (this) {
+            return ataque;
+        }
+    }
+
+    @Override
+    public void run() {
+      log.info("running Thread...");
+    }
 
 
     public Carta(String nombre, long ataque, long defensa) {
@@ -59,9 +73,14 @@ public abstract class Carta implements Serializable ,Comparable<Carta>{
     public  void incrementarAtaqueAtomic(){
         ataqueAtomic.getAndIncrement();
     }
-    public synchronized void incrementarAtaque(){
+    public void incrementarAtaque(){
+        /*synchronized (this) {
+            ataque++;
+        }*/
         ataque++;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
