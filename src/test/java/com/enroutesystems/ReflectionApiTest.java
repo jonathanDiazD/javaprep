@@ -1,6 +1,5 @@
 package com.enroutesystems;
 
-import com.enroutesystems.yugioh.Carta;
 import com.enroutesystems.yugioh.CartaMonstruo;
 import com.enroutesystems.yugioh.Duelista;
 import lombok.extern.slf4j.Slf4j;
@@ -18,23 +17,23 @@ public class ReflectionApiTest {
 
 
     @Test
-    public void reflectionTestClass(){
+    public void reflectionTestClass() {
         Class<Duelista> duelistaClass = Duelista.class;
         log.info(duelistaClass.getName());
         int classModifier = duelistaClass.getModifiers();
-        log.info(Modifier.isPublic(classModifier)+"");
+        log.info(Modifier.isPublic(classModifier) + "");
         Method[] methods = duelistaClass.getDeclaredMethods();
-        Arrays.stream(methods).filter(m->m.getName().contains("set")).peek(m->log.info(m.getName())).count();
+        Arrays.stream(methods).filter(m -> m.getName().contains("set")).peek(m -> log.info(m.getName())).count();
     }
 
 
     @Test
-    public void reflectionTestConstructor()  {
+    public void reflectionTestConstructor() {
         Class<CartaMonstruo> carta = CartaMonstruo.class;
         try {
             Constructor constructor = carta.getConstructor(new Class[]{String.class});
             CartaMonstruo magoOscuro = (CartaMonstruo) constructor.newInstance("Mago Oscuro");
-            Arrays.stream(constructor.getParameters()).peek(m->log.info(m.getName())).collect(Collectors.toList());
+            Arrays.stream(constructor.getParameters()).peek(m -> log.info(m.getName())).collect(Collectors.toList());
             log.info(magoOscuro.getNombre());
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -48,17 +47,17 @@ public class ReflectionApiTest {
     }
 
     @Test
-    public void reflectionTestMethods()  {
-        Map<String,String> mapParameters = new HashMap<>();
-        mapParameters.put("ataque","2500");
-        mapParameters.put("nombre","Mago Oscuro");
-        mapParameters.put("defensa","2000");
+    public void reflectionTestMethods() {
+        Map<String, String> mapParameters = new HashMap<>();
+        mapParameters.put("ataque", "2500");
+        mapParameters.put("nombre", "Mago Oscuro");
+        mapParameters.put("defensa", "2000");
         Class<CartaMonstruo> carta = CartaMonstruo.class;
-        CartaMonstruo cartaMonstruo=null;
+        CartaMonstruo cartaMonstruo = null;
         try {
             cartaMonstruo = carta.newInstance();
-            Method method = carta.getMethod("setNombre",String.class);
-            method.invoke(cartaMonstruo,"Mago Oscuro");
+            Method method = carta.getMethod("setNombre", String.class);
+            method.invoke(cartaMonstruo, "Mago Oscuro");
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
@@ -72,22 +71,22 @@ public class ReflectionApiTest {
     }
 
     @Test
-    public void reflectionTestDynamicMethods()  {
-        Map<String,String> mapParameters = new HashMap<>();
-        mapParameters.put("ataque","2500");
-        mapParameters.put("nombre","Mago Oscuro");
-        mapParameters.put("defensa","2000");
+    public void reflectionTestDynamicMethods() {
+        Map<String, String> mapParameters = new HashMap<>();
+        mapParameters.put("ataque", "2500");
+        mapParameters.put("nombre", "Mago Oscuro");
+        mapParameters.put("defensa", "2000");
         Class<CartaMonstruo> carta = CartaMonstruo.class;
-        CartaMonstruo cartaMonstruo=null;
+        CartaMonstruo cartaMonstruo = null;
         try {
             cartaMonstruo = carta.newInstance();
-            for(String key: mapParameters.keySet()){
-                String methodName = "set"+key.substring(0,1).toUpperCase(Locale.ROOT)+key.substring(1);
+            for (String key : mapParameters.keySet()) {
+                String methodName = "set" + key.substring(0, 1).toUpperCase(Locale.ROOT) + key.substring(1);
                 Field field = carta.getSuperclass().getDeclaredField(key);
-                Method method = carta.getSuperclass().getMethod(methodName,field.getType());
-                if(field.getType().equals(Long.class)) {
+                Method method = carta.getSuperclass().getMethod(methodName, field.getType());
+                if (field.getType().equals(Long.class)) {
                     method.invoke(cartaMonstruo, Long.parseLong(mapParameters.get(key)));
-                }else {
+                } else {
                     method.invoke(cartaMonstruo, mapParameters.get(key));
                 }
             }
@@ -99,10 +98,10 @@ public class ReflectionApiTest {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
-        }catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-        log.info("result:"+cartaMonstruo);
+        log.info("result:" + cartaMonstruo);
     }
 
 }

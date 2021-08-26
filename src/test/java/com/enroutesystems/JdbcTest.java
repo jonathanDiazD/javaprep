@@ -2,10 +2,8 @@ package com.enroutesystems;
 
 import com.enroutesystems.yugioh.DataSourceInitialization;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.OracleType;
 import oracle.jdbc.OracleTypes;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
 import java.sql.*;

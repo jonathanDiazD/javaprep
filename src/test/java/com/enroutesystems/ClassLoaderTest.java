@@ -14,18 +14,17 @@ import java.util.ArrayList;
 public class ClassLoaderTest {
 
     @Test
-    public void classLoaderBootstrap(){
-        log.info("class loader{}",java.util.ArrayList.class.getClassLoader());
+    public void classLoaderBootstrap() {
+        log.info("class loader{}", java.util.ArrayList.class.getClassLoader());
     }
 
     @Test
-    public void classLoaderCurrent(){
-        log.info("class loader{}",com.enroutesystems.yugioh.Carta.class.getClassLoader());
+    public void classLoaderCurrent() {
+        log.info("class loader{}", com.enroutesystems.yugioh.Carta.class.getClassLoader());
     }
 
-
     @Test
-    public void classLoaderSpring(){
+    public void classLoaderSpring() {
         log.info("class loader{}", SpringApplication.class.getClassLoader());
     }
 }

@@ -5,10 +5,13 @@ import com.enroutesystems.yugioh.CartaMonstruo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.*;
+import java.util.spi.LocaleServiceProvider;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -117,11 +120,16 @@ public class FunctionalProgrammingTest {
         log.info("{}",cartaPredicate.test(magoOscuro));
     }
 
+
     @Test
     public void supplier() {
         Supplier<Carta> supplier = (Supplier<Carta>) () -> new CartaMonstruo("Mago Oscuro", 2500, 2000);
         Carta magoOscuro = supplier.get();
         log.info("{}",magoOscuro);
+
+        String example = "example";
+        String example2 = "example2";
+
     }
 
     class Person{
@@ -143,5 +151,6 @@ public class FunctionalProgrammingTest {
         MALE,
         FEMALE;
     }
+
 
 }

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
 
@@ -18,16 +20,18 @@ import java.util.function.Consumer;
 @Slf4j
 public abstract class Carta extends Thread implements Serializable ,Comparable<Carta> {
 
-    protected String nombre;
-    protected Long ataque;
-    protected Long defensa;
-    protected byte imagen;
-    protected int nivel;
+    private static final long serialVersionUID = -4888527811665559915L;
+    protected  String nombre;
+    protected transient Long ataque;
+    protected transient Long defensa;
+    protected transient byte imagen;
+    protected transient int nivel;
     protected transient ModoPelea modo;
-    protected char firstEdition;
+    protected transient char firstEdition;
     protected short precioDlls;
     protected AtomicLong ataqueAtomic;
     protected  boolean edicionPrimera;
+    private Lock lock  = new ReentrantLock();
 
     public Long getAtaque() {
         synchronized (this) {
@@ -73,13 +77,21 @@ public abstract class Carta extends Thread implements Serializable ,Comparable<C
     public  void incrementarAtaqueAtomic(){
         ataqueAtomic.getAndIncrement();
     }
+
     public void incrementarAtaque(){
-        /*synchronized (this) {
+        synchronized (this) {
             ataque++;
-        }*/
-        ataque++;
+        }
     }
 
+    public void incrementarAtaqueLock(){
+        try {
+            lock.lock();
+            ataque++;
+        }finally {
+            lock.unlock();
+        }
+    }
 
 
     @Override

@@ -11,8 +11,7 @@ public class MergeSortTest {
 
 
     //0,2,5
-    void merge(int arr[], int left, int middle, int right)
-    {
+    void merge(int arr[], int left, int middle, int right) {
         //3
         int low = middle - left + 1;                    //size of the left subarray
         //3
@@ -39,13 +38,10 @@ public class MergeSortTest {
 
         while (i < low && j < high)                     //merge the left and right subarrays
         {
-            if (L[i] <= R[j])
-            {
+            if (L[i] <= R[j]) {
                 arr[k] = L[i];
                 i++;
-            }
-            else
-            {
+            } else {
                 arr[k] = R[j];
                 j++;
             }
@@ -53,7 +49,7 @@ public class MergeSortTest {
         }
 
         while (i < low)                             //merge the remaining elements from the left subarr
-             {
+        {
             arr[k] = L[i];
             i++;
             k++;
@@ -85,19 +81,17 @@ public class MergeSortTest {
 
     void display(int arr[])                 //display the array
     {
-        for (int i=0; i<arr.length; ++i)
-        {
-            System.out.print(arr[i]+" ");
+        for (int i = 0; i < arr.length; ++i) {
+            System.out.print(arr[i] + " ");
         }
     }
 
     @Test
-    public void mergeSortTest()
-    {
-        int arr[] = { 9, 3, 1, 5, 13, 12 };
+    public void mergeSortTest() {
+        int arr[] = {9, 3, 1, 5, 13, 12};
         mergeSort(arr, 0, arr.length - 1);
         for (int i : arr) {
-            log.info(i+"");
+            log.info(i + "");
         }
         display(arr);
     }

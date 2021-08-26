@@ -16,17 +16,17 @@ public class AtomicAPITest {
 
 
     @Test
-    public void customAnnotationMagia(){
+    public void customAnnotationMagia() {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         Carta magoOscuro = new CartaMonstruo("Mago Oscuro", 0, 2000);
-        Runnable task1= ()->{
-            for(int i=0;i<2000;i++){
+        Runnable task1 = () -> {
+            for (int i = 0; i < 2000; i++) {
                 magoOscuro.incrementarAtaque();
             }
         };
 
-        Runnable task2= ()->{
-            for(int i=0;i<2000;i++){
+        Runnable task2 = () -> {
+            for (int i = 0; i < 2000; i++) {
                 magoOscuro.incrementarAtaque();
             }
         };
@@ -37,21 +37,21 @@ public class AtomicAPITest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("Atk final:"+magoOscuro.getAtaque());
+        log.info("Atk final:" + magoOscuro.getAtaque());
     }
 
     @Test
-    public void customAnnotationMagiaAtomic(){
+    public void customAnnotationMagiaAtomic() {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         Carta magoOscuro = new CartaMonstruo("Mago Oscuro", new AtomicLong(0l), 2000);
-        Runnable task1= ()->{
-            for(int i=0;i<2000;i++){
+        Runnable task1 = () -> {
+            for (int i = 0; i < 2000; i++) {
                 magoOscuro.incrementarAtaqueAtomic();
             }
         };
 
-        Runnable task2= ()->{
-            for(int i=0;i<2000;i++){
+        Runnable task2 = () -> {
+            for (int i = 0; i < 2000; i++) {
                 magoOscuro.incrementarAtaqueAtomic();
             }
         };
@@ -62,20 +62,20 @@ public class AtomicAPITest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("Atk final:"+magoOscuro.getAtaqueAtomic().get());
+        log.info("Atk final:" + magoOscuro.getAtaqueAtomic().get());
     }
 
 
     @Test
-    public void customAnnotationMagiaBooleanAtomic(){
+    public void customAnnotationMagiaBooleanAtomic() {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-        Carta magoOscuro = new CartaMonstruo("Mago Oscuro", new AtomicLong(0l), 2000,true);
-        Runnable task2= ()->{
-            while(magoOscuro.isEdicionPrimera()){
+        Carta magoOscuro = new CartaMonstruo("Mago Oscuro", new AtomicLong(0l), 2000, true);
+        Runnable task2 = () -> {
+            while (magoOscuro.isEdicionPrimera()) {
                 log.info("Mago oscuro is atk");
             }
         };
-        Runnable task1= ()->{
+        Runnable task1 = () -> {
             magoOscuro.setEdicionPrimera(false);
         };
         executorService.submit(task2);
@@ -85,6 +85,6 @@ public class AtomicAPITest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("Atk final:"+magoOscuro.getAtaqueAtomic().get());
+        log.info("Atk final:" + magoOscuro.getAtaqueAtomic().get());
     }
 }

@@ -17,7 +17,6 @@ public class SelectionSortTest {
         Arrays.stream(arr).forEach(e->log.info("Numero {}",e));
     }
 
-
     private void selectionSort(int arr[]){
         int pos;
         int temp;

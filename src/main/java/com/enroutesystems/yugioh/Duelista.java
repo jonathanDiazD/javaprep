@@ -12,7 +12,7 @@ public class Duelista implements Comparable<Duelista> {
 
     private String nombre;
     private double lifePoints;
-    private LinkedList<Carta> deck= new LinkedList<>();
+    private LinkedList<Carta> deck = new LinkedList<>();
     private List<Carta> mano = new ArrayList<>(5);
     private boolean turnoActual;
     private TableroJuego tablero;
@@ -23,49 +23,48 @@ public class Duelista implements Comparable<Duelista> {
         this.deck = deck;
     }
 
-    public Carta convocar(Carta carta) throws Exception{
-        if(carta instanceof CartaMonstruo) {
+    public Carta convocar(Carta carta) throws Exception {
+        if (carta instanceof CartaMonstruo) {
             carta.setModo(ModoPelea.Ataque);
             mano.remove(carta);
-        }
-        else if(carta instanceof CartaMagia){
+        } else if (carta instanceof CartaMagia) {
             carta.setModo(ModoPelea.BocaAbajo);
         }
         return carta;
     }
 
-    public Long sumarizarPoderAtk(){
-        Long ataque =0L;
-        if(this.deck!=null&&!this.deck.isEmpty()){
-            for(Carta carta:this.deck){
-                if(carta instanceof CartaMagia){
+    public Long sumarizarPoderAtk() {
+        Long ataque = 0L;
+        if (this.deck != null && !this.deck.isEmpty()) {
+            for (Carta carta : this.deck) {
+                if (carta instanceof CartaMagia) {
                     continue;
                 }
                 switch (carta.nivel) {
-                    case  4:
-                        ataque+= carta.ataque;
+                    case 4:
+                        ataque += carta.ataque;
                         break;
 
                     default:
-                        ataque+=carta.ataque;
+                        ataque += carta.ataque;
                         break;
                 }
             }
         }
         Iterator<Carta> itCarta = this.mano.listIterator();
 
-        do{
+        do {
             Carta carta = itCarta.next();
-           if(carta instanceof CartaMagia){
-               continue;
-           }
-            ataque+=carta.ataque;
-        }while(itCarta.hasNext());
+            if (carta instanceof CartaMagia) {
+                continue;
+            }
+            ataque += carta.ataque;
+        } while (itCarta.hasNext());
 
         return ataque;
     }
 
-    public Carta sacarCarta(){
+    public Carta sacarCarta() {
         Carta carta = deck.removeFirst();
         this.mano.add(carta);
         return carta;
@@ -73,9 +72,9 @@ public class Duelista implements Comparable<Duelista> {
 
     @Override
     public int compareTo(Duelista o) {
-        if(this.getLifePoints()==o.getLifePoints()){
+        if (this.getLifePoints() == o.getLifePoints()) {
             return 0;
         }
-        return this.getLifePoints()>o.getLifePoints()?1:-1;
+        return this.getLifePoints() > o.getLifePoints() ? 1 : -1;
     }
 }

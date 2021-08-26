@@ -2,7 +2,6 @@ package com.enroutesystems.yugioh;
 
 import com.enroutesystems.yugioh.annotatios.Magia;
 import com.enroutesystems.yugioh.annotatios.Rare;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
