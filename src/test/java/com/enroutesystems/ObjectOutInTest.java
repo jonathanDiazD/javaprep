@@ -18,7 +18,6 @@ public class ObjectOutInTest {
         deserialize("Duelo");
     }
 
-    @Test
     public void serialize(String fileName, Carta carta) {
         File file = new File(fileName);
         FileOutputStream fileOutputStream = null;
@@ -33,8 +32,7 @@ public class ObjectOutInTest {
         }
     }
 
-
-    @Test
+    
     public void deserialize(String fileName) {
         File file = new File(fileName);
         try {
